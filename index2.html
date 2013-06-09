@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5" />
+<title>FQ微風小說下載程式</title>
+<script src="js/jquery.min.js"></script>
+<script language="javascript">
+function get(){
+	var tid = $("#tid").val();
+	$.post("get.php",$("form").serialize(),function(data){
+		var app = tid+" ";
+		if(data.match("new")){
+			app += " (新書新下載)";
+			app += " 完成...選擇...<a href='download.php?tid="+tid+"'>全部下載</a>...";
+			$("#tid"+tid).html(app);
+		}else if(data.match("update")){
+			app +=" (舊書需更新)";
+			app += " 完成...選擇...<a href='download.php?tid="+tid+"'>全部下載</a>...";
+			$("#tid"+tid).html(app);
+		}else{
+			alert("找無資料");
+		}
+	});
+	$("#dw_type").append("<p id='tid"+tid+"'>"+tid+" "+" 下載中...</p>");
+}
+
+</script>
+</head>
+
+<body>
+<h2><a href="index.html">新增下載</a> <a href="brows.php">書庫</a></h2>
+<p><a target="_blank" href="http://bbs.wefong.com/forumdisplay.php?fid=334">微風小說網站</a></p>
+<p>請輸入網址中的 tid 代碼，以及書名</p>
+<form id="form" name="form1" method="post" action="get.php">
+	<p>
+	Tid : <input id="tid" name="tid" type="text" />
+	</p>
+	<p>
+		<input name="end" type="radio" value="0" />
+		連載中...
+		<input name="end" type="radio" value="1" checked="checked" />
+		全書完...
+	</p>
+	<p>
+		<input type="button" name="submit" value="下載" onclick="get()" />
+	</p>
+</form>
+<p>狀態</p>
+<div id="dw_type">
+</div>
+</body>
+</html>

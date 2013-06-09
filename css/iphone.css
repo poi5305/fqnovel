@@ -1,0 +1,15 @@
+body{
+	overflow:hidden;
+	min-height:420px;
+}
+body >div{
+	min-height:420px;
+	overflow:hidden;
+}
+/* start css */
+#home{
+	
+}
+
+
+
